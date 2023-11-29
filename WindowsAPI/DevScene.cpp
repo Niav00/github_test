@@ -5,6 +5,7 @@
 #include "TimeManager.h"
 #include "ResourceManager.h"
 #include "Texture.h"
+#include "Sprite.h"
 
 DevScene::DevScene()
 {
@@ -28,6 +29,10 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Start", L"Sprite\\UI\\Start.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Edit", L"Sprite\\UI\\Edit.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Exit", L"Sprite\\UI\\Exit.bmp");
+
+	Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(L"Start");
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_On", tex, 150, 0, 150, 150);
+
 }
 
 void DevScene::Update()
@@ -39,13 +44,16 @@ void DevScene::Update()
 
 void DevScene::Render(HDC hdc)
 {
-	Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(L"Stage01");
+	// Texture* tex = GET_SINGLE(ResourceManager)->GetTexture(L"Stage01");
+	Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Start_On");
 
 	::BitBlt(hdc,
 		0,
 		0,
 		GWinSizeX,
 		GWinSizeY,
-		tex->GetDC(),
-		0, 0, SRCCOPY);
+		sprite->GetDC(),
+		sprite->GetPos().x,
+		sprite->GetPos().y,
+		SRCCOPY);
 }

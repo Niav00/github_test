@@ -52,7 +52,7 @@ Sprite* ResourceManager::CreateSprite(const wstring& key, Texture* texture, int3
 	if (cx == 0)
 		cx = texture->GetSize().x;
 	if (cx == 0)
-		cy == texture->GetSize().y;
+		cy = texture->GetSize().y;
 
 	Sprite* sprite = new Sprite(texture, x, y, cx, cy);
 	_sprites[key] = sprite;
